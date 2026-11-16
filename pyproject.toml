@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wattman"
+version = "0.1.0"
+authors = [
+  { name = "Siddharth Kothiyal", email = "sid.kothiyal27@gmail.com" },
+]
+description = "System power & utilization analyzer: per-process power attribution, settings discovery, and A/B-validated tuning suggestions."
+readme = "README.md"
+requires-python = ">=3.11, <3.13"
+license = "MIT"
+dependencies = [
+  "typer>=0.12",
+  "pydantic>=2.6",
+  "pydantic-settings>=2.2",
+  "rich>=13.7",
+  "psutil>=5.9",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+gpu = ["nvidia-ml-py>=12.535"]
+dev = ["pytest", "pytest-cov"]
+
+[project.scripts]
+wattman = "wattman.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/wattman"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
